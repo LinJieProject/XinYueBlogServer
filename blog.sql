@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 24/10/2019 09:04:26
+ Date: 24/10/2019 09:19:28
 */
 
 SET NAMES utf8mb4;
@@ -31,8 +31,8 @@ CREATE TABLE `article` (
   `author` varchar(128) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章作者',
   `summary` varchar(256) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章摘要',
   `create_time` timestamp NOT NULL COMMENT '发布时间',
-  `update_time` timestamp NOT NULL COMMENT '更新时间',
+  `update_time` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;
