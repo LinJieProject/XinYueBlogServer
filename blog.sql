@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 24/10/2019 11:09:54
+ Date: 24/10/2019 11:46:37
 */
 
 SET NAMES utf8mb4;
@@ -26,8 +26,8 @@ CREATE TABLE `article` (
   `tag_id` bigint(20) unsigned NOT NULL COMMENT '标签ID',
   `content` longtext COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
   `title` varchar(1024) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章标题',
-  `view_conut` int(255) unsigned NOT NULL COMMENT '阅读次数',
-  `comment_conut` int(255) unsigned NOT NULL COMMENT '评论次数',
+  `view_count` int(255) unsigned NOT NULL COMMENT '阅读次数',
+  `comment_count` int(255) unsigned NOT NULL COMMENT '评论次数',
   `username` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章作者',
   `summary` varchar(256) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章摘要',
   `create_time` timestamp NOT NULL COMMENT '发布时间',
