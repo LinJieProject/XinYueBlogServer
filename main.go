@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"xybs/controller"
 	"xybs/db"
+	"xybs/middleware"
 )
 
 func main() {
@@ -15,6 +16,9 @@ func main() {
 
 	// 创建一个默认的路由引擎
 	r:=gin.Default()
+
+	// 使用中间件
+	r.Use(middleware.CorsMiddleware())
 
 	// 浏览所有文章的基本信息
 	r.GET("/Article",controller.ArticleListHandler)
