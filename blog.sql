@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 25/10/2019 20:25:14
+ Date: 25/10/2019 21:34:35
 */
 
 SET NAMES utf8mb4;
@@ -29,10 +29,16 @@ CREATE TABLE `article`  (
   `comment_count` int(255) UNSIGNED NOT NULL COMMENT '评论次数',
   `username` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章作者',
   `summary` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章摘要',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '发布时间',
-  `update_time` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
+INSERT INTO `article` VALUES (1, '内容', 'Go语言基础之结构体', 0, 0, 'q1mi', 'Go语言中没有“类”的概念，也不支持“类”的继承等面向对象的概念。Go语言中通过结构体的内嵌再配合接口比面向对象具有更高的扩展性和灵活性。');
+INSERT INTO `article` VALUES (2, '内容', 'Go语言基础之包', 0, 0, 'q1mi', '在工程化的Go语言开发项目中，Go语言的源码复用是建立在包（package）基础之上的。本文介绍了Go语言中如何定义包、如何导出包的内容及如何导入其他包。');
+INSERT INTO `article` VALUES (3, '内容', 'Go语言基础之反射', 0, 0, 'q1mi', '本文介绍了Go语言反射的意义和基本使用。');
+INSERT INTO `article` VALUES (4, '内容', 'Gin框架介绍及使用', 0, 0, 'q1mi', 'Gin是一个用Go语言编写的web框架。它是一个类似于martini但拥有更好性能的API框架, 由于使用了httprouter，速度提高了近40倍。 如果你是性能和高效的追求者, 你会爱上Gin。');
 
 -- ----------------------------
 -- Table structure for comment
