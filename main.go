@@ -23,6 +23,9 @@ func main() {
 	// 浏览所有文章的基本信息
 	r.GET("/Article",controller.ArticleListHandler)
 
+	// 用户登录
+	r.POST("/Login",controller.LoginHandler)
+
 	// 启动http服务，设置在:9090启动，默认在127.0.0.1:8080启动服务
 	r.Run("127.0.0.1:9090")
 }

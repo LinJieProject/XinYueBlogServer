@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 26/10/2019 12:03:50
+ Date: 28/10/2019 18:06:32
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `user` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
-  `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '性别',
+  `gender` varchar(4) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '性别',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
@@ -72,8 +72,8 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (1, 123, 'tom', '123', 1);
-INSERT INTO `user` VALUES (2, 124, 'sam', '111', 0);
+INSERT INTO `user` VALUES (1, 123, 'tom', '123', 'm');
+INSERT INTO `user` VALUES (2, 124, 'sam', '111', 'w');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
