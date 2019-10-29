@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"xybs/db"
+	"xybs/models"
 )
 
 func ArticleListHandler(c *gin.Context) {
@@ -22,11 +23,15 @@ func ArticleListHandler(c *gin.Context) {
 }
 
 func LoginHandler(c *gin.Context) {
-	//username := c.PostForm("username")
-	//password := c.PostForm("password")
-	username := c.Request.FormValue("username")
-	password := c.Request.FormValue("password")
-	user, err := db.QueryUser(username, password)
+	var tempUser models.User
+	err:=c.ShouldBind(&tempUser)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"msg":  "用户名或密码不能为空！",
+		})
+		return
+	}
+	user, err := db.QueryUser(tempUser.Username, tempUser.Password)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"msg":  "用户名或密码错误！",

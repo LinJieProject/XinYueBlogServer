@@ -7,7 +7,6 @@ import (
 
 // QueryUser
 func QueryUser(username, password string) (user models.User, err error) {
-	fmt.Println(username,password)
 	sqlSrt := "SELECT * FROM `user` WHERE username=? AND `password`=?"
 	//var user models.User
 	err = db.Get(&user, sqlSrt, username, password)
