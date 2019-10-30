@@ -26,6 +26,9 @@ func main() {
 	// 用户登录
 	r.POST("/Login",controller.LoginHandler)
 
+	// 用户注册
+	r.POST("/Register",controller.RegisterHandler)
+
 	// 启动http服务，设置在:9090启动，默认在127.0.0.1:8080启动服务
 	r.Run("127.0.0.1:9090")
 }
