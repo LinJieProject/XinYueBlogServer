@@ -9,3 +9,9 @@ type ArticleInfo struct {
 	Username     string    `db:"username" json:"username"`
 	Summary      string    `db:"summary" json:"summary"`
 }
+
+// ArticleDetail 存放文章基本信息和文章内容的结构体
+type ArticleDetail struct {
+	ArticleInfo
+	Content string `db:content json:"content"`
+}

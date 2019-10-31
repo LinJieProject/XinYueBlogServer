@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 	"xybs/db"
@@ -76,9 +77,9 @@ func RegisterHandler(c *gin.Context) {
 		})
 		return
 	}
-	if db.QueryUserByUsername(username){
+	if db.QueryUserByUsername(username) {
 		c.JSON(http.StatusOK, gin.H{
-			"msg":  "该用户名已被注册！",
+			"msg": "该用户名已被注册！",
 		})
 		return
 	}
@@ -89,5 +90,26 @@ func RegisterHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"msg":  "注册成功！",
 		"user": user,
+	})
+}
+
+func ArticleDetailHandler(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseInt(idStr, 0, 64)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	articleDetail, err := db.QueryAnArticleByID(id)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code": 1,
+			"msg":  err,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": 0,
+		"data": articleDetail,
 	})
 }
