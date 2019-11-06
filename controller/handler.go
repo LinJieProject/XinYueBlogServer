@@ -51,7 +51,7 @@ func LoginHandler(c *gin.Context) {
 func RegisterHandler(c *gin.Context) {
 	var tempUser models.User
 	err := c.ShouldBind(&tempUser)
-	fmt.Println("username:", tempUser.Username, "password:", tempUser.Password, "password2:", tempUser.Password2)
+	fmt.Println("username:", tempUser.Username, "password:", tempUser.Password, "checkPass:", tempUser.CheckPass)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "用户名或密码不能为空！",
@@ -61,17 +61,17 @@ func RegisterHandler(c *gin.Context) {
 	// 去除空格
 	username := strings.Replace(tempUser.Username, " ", "", -1)
 	password := strings.Replace(tempUser.Password, " ", "", -1)
-	password2 := strings.Replace(tempUser.Password2, " ", "", -1)
+	checkPass := strings.Replace(tempUser.CheckPass, " ", "", -1)
 	fmt.Printf("%#v\n", username)
 	fmt.Printf("%#v\n", password)
-	fmt.Printf("%#v\n", password2)
+	fmt.Printf("%#v\n", checkPass)
 	if username == "" || password == "" {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "用户名或密码不能为空！",
 		})
 		return
 	}
-	if password != password2 {
+	if password != checkPass {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "两次密码不一致！",
 		})
