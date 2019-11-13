@@ -32,6 +32,9 @@ func main() {
 	// 浏览一篇文章
 	r.GET("/Article/:id",controller.ArticleDetailHandler)
 
+	// 发布一篇文章
+	r.POST("/PublishArticle",controller.PublishArticleHandler)
+
 	// 启动http服务，设置在:9090启动，默认在127.0.0.1:8080启动服务
 	r.Run("127.0.0.1:9090")
 }

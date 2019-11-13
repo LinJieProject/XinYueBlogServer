@@ -25,22 +25,36 @@ FROM
 }
 
 // QueryAnArticleByID 查询一篇文章
-func QueryAnArticleByID(id int64) (articleDetail models.ArticleDetail,err error) {
-	sqlSrt1:="SELECT id,title,view_count,comment_count,username,summary FROM article WHERE id = ?"
-	sqlSrt2:="SELECT content FROM article WHERE id = ?"
+func QueryAnArticleByID(id int64) (articleDetail models.ArticleDetail, err error) {
+	sqlSrt1 := "SELECT id,title,view_count,comment_count,username,summary FROM article WHERE id = ?"
+	sqlSrt2 := "SELECT content FROM article WHERE id = ?"
 	var articleInfo models.ArticleInfo
 	var content string
-	err=db.Get(&articleInfo,sqlSrt1,id)
+	err = db.Get(&articleInfo, sqlSrt1, id)
 	if err != nil {
 		fmt.Println("查询文章失败！")
 		return
 	}
-	err=db.Get(&content,sqlSrt2,id)
+	err = db.Get(&content, sqlSrt2, id)
 	if err != nil {
 		fmt.Println("查询文章失败！")
 		return
 	}
-	articleDetail.ArticleInfo=articleInfo
-	articleDetail.Content=content
+	articleDetail.ArticleInfo = articleInfo
+	articleDetail.Content = content
 	return
+}
+
+// InsertArticle 插入一篇文章
+func InsertArticle(content, title, username, summary string, viewCount, commentCount uint32) {
+	sqlStr := `INSERT INTO article
+		( content, title, view_count, comment_count,username,summary )
+VALUES
+	( ?,?,?,?,?,? )`
+	_, err := db.Exec(sqlStr, content, title, viewCount, commentCount, username, summary)
+	if err != nil {
+		fmt.Println("插入文章失败！")
+		return
+	}
+	fmt.Println("插入文章成功！")
 }

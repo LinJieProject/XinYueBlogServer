@@ -26,6 +26,7 @@ func ArticleListHandler(c *gin.Context) {
 	})
 }
 
+// LoginHandler 用户登录处理函数
 func LoginHandler(c *gin.Context) {
 	var tempUser models.User
 	err := c.ShouldBind(&tempUser)
@@ -48,6 +49,7 @@ func LoginHandler(c *gin.Context) {
 	})
 }
 
+// RegisterHandler 用户注册处理函数
 func RegisterHandler(c *gin.Context) {
 	var tempUser models.User
 	err := c.ShouldBind(&tempUser)
@@ -111,5 +113,22 @@ func ArticleDetailHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
 		"data": articleDetail,
+	})
+}
+
+// PublishArticleHandler 发布文章处理函数
+func PublishArticleHandler(c *gin.Context) {
+	var article models.ArticleDetail
+	err := c.ShouldBind(&article)
+	fmt.Printf("%#v\n", article)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": "后端获取文章失败！",
+		})
+		return
+	}
+	db.InsertArticle(article.Content,article.Title,article.Username,article.Summary,article.ViewCount,article.CommentCount)
+	c.JSON(http.StatusOK, gin.H{
+		"msg":  "发布成功！",
 	})
 }
