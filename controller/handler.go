@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -20,6 +21,10 @@ func ArticleListHandler(c *gin.Context) {
 		})
 		return
 	}
+	// 根据文章的ID进行降序排序
+	sort.Slice(articleList, func(i, j int) bool {
+		return articleList[i].Id > articleList[j].Id
+	})
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
 		"data": articleList,
@@ -127,8 +132,8 @@ func PublishArticleHandler(c *gin.Context) {
 		})
 		return
 	}
-	db.InsertArticle(article.Content,article.Title,article.Username,article.Summary,article.ViewCount,article.CommentCount)
+	db.InsertArticle(article.Content, article.Title, article.Username, article.Summary, article.ViewCount, article.CommentCount)
 	c.JSON(http.StatusOK, gin.H{
-		"msg":  "发布成功！",
+		"msg": "发布成功！",
 	})
 }
