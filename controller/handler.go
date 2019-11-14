@@ -121,13 +121,23 @@ func ArticleDetailHandler(c *gin.Context) {
 	})
 }
 
-// PublishArticleHandler 发布文章处理函数
+// @Summary 发布一篇文章
+// @Description 用于用户发布文章
+// @Tags 文章模块
+// @Accept  json
+// @Produce json
+// @Param title body string true "文章标题"
+// @Param content body string true "文章内容"
+// @Param summary body string true "文章摘要"
+// @Success 200 {object} gin.H "{"msg": "发布成功！"}"
+// @Failure 401 {object} gin.H "{"msg": "后端获取文章失败！"}"
+// @Router /PublishArticle [post]
 func PublishArticleHandler(c *gin.Context) {
 	var article models.ArticleDetail
 	err := c.ShouldBind(&article)
 	fmt.Printf("%#v\n", article)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusUnauthorized, gin.H{
 			"msg": "后端获取文章失败！",
 		})
 		return

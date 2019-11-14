@@ -1,0 +1,50 @@
+basePath: /api/v1/
+definitions:
+  gin.H:
+    additionalProperties:
+      type: object
+    type: object
+info:
+  contact: {}
+  description: 给心阅博客网站前端提供API
+  license: {}
+  title: 心阅博客
+  version: 0.0.1
+paths:
+  /PublishArticle:
+    post:
+      consumes:
+      - application/json
+      description: 用于用户发布文章
+      parameters:
+      - description: 文章标题
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: 文章内容
+        in: body
+        name: content
+        required: true
+        schema:
+          type: string
+      - description: 文章摘要
+        in: body
+        name: summary
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg": "发布成功！"}'
+          schema:
+            $ref: '#/definitions/gin.H'
+        "401":
+          description: '{"msg": "后端获取文章失败！"}'
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: 发布一篇文章
+swagger: "2.0"
