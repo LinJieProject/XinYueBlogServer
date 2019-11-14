@@ -1,8 +1,13 @@
 basePath: /api/v1/
 definitions:
-  gin.H:
-    additionalProperties:
-      type: object
+  controller.Result:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
     type: object
 info:
   contact: {}
@@ -18,33 +23,32 @@ paths:
       description: 用于用户发布文章
       parameters:
       - description: 文章标题
-        in: body
+        in: formData
         name: title
         required: true
-        schema:
-          type: string
+        type: string
       - description: 文章内容
-        in: body
+        in: formData
         name: content
         required: true
-        schema:
-          type: string
+        type: string
       - description: 文章摘要
-        in: body
+        in: formData
         name: summary
         required: true
-        schema:
-          type: string
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"msg": "发布成功！"}'
+          description: '{"code":200,"data":nil,"msg": "发布成功！"}'
           schema:
-            $ref: '#/definitions/gin.H'
+            $ref: '#/definitions/controller.Result'
         "401":
-          description: '{"msg": "后端获取文章失败！"}'
+          description: '{"code":401,"data":nil,"msg": "后端获取文章失败！"}'
           schema:
-            $ref: '#/definitions/gin.H'
+            $ref: '#/definitions/controller.Result'
       summary: 发布一篇文章
+      tags:
+      - 文章模块
 swagger: "2.0"

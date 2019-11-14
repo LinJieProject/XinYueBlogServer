@@ -12,6 +12,20 @@ import (
 	"xybs/models"
 )
 
+type Result struct {
+	Code int         `json:"code"`
+	Data interface{} `json:"data"`
+	Msg  string      `json:"msg"`
+}
+
+func returnMsg(ctx *gin.Context, code int, data interface{}, msg string) {
+	ctx.JSON(code, Result{
+		Code:code,
+		Data:data,
+		Msg:msg,
+	})
+}
+
 func ArticleListHandler(c *gin.Context) {
 	articleList, err := db.QueryAllArticle()
 	if err != nil {
@@ -126,24 +140,26 @@ func ArticleDetailHandler(c *gin.Context) {
 // @Tags 文章模块
 // @Accept  json
 // @Produce json
-// @Param title body string true "文章标题"
-// @Param content body string true "文章内容"
-// @Param summary body string true "文章摘要"
-// @Success 200 {object} gin.H "{"msg": "发布成功！"}"
-// @Failure 401 {object} gin.H "{"msg": "后端获取文章失败！"}"
+// @Param title formData string true "文章标题"
+// @Param content formData string true "文章内容"
+// @Param summary formData string true "文章摘要"
+// @Success 200 {object} Result "{"code":200,"data":nil,"msg": "发布成功！"}"
+// @Failure 401 {object} Result "{"code":401,"data":nil,"msg": "后端获取文章失败！"}"
 // @Router /PublishArticle [post]
 func PublishArticleHandler(c *gin.Context) {
 	var article models.ArticleDetail
 	err := c.ShouldBind(&article)
 	fmt.Printf("%#v\n", article)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"msg": "后端获取文章失败！",
-		})
+		returnMsg(c,http.StatusUnauthorized,nil,"后端获取文章失败！")
+		//c.JSON(http.StatusUnauthorized, gin.H{
+		//	"msg": "后端获取文章失败！",
+		//})
 		return
 	}
 	db.InsertArticle(article.Content, article.Title, article.Username, article.Summary, article.ViewCount, article.CommentCount)
-	c.JSON(http.StatusOK, gin.H{
-		"msg": "发布成功！",
-	})
+	//c.JSON(http.StatusOK, gin.H{
+	//	"msg": "发布成功！",
+	//})
+	returnMsg(c,http.StatusOK,nil,"发布成功！")
 }
