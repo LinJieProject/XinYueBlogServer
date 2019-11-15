@@ -129,6 +129,9 @@ func ArticleDetailHandler(c *gin.Context) {
 		})
 		return
 	}
+	// 更新文章阅读量
+	db.UpdateViewCount(id)
+	articleDetail.ArticleInfo.ViewCount+=1
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
 		"data": articleDetail,

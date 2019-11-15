@@ -58,3 +58,14 @@ VALUES
 	}
 	fmt.Println("插入文章成功！")
 }
+
+// UpdateViewCount 更新阅读量
+func UpdateViewCount(id int64) {
+	sqlStr:="UPDATE article SET view_count=view_count+1 WHERE id=?"
+	_, err := db.Exec(sqlStr, id)
+	if err != nil {
+		fmt.Printf("更新阅读量失败, err:%v\n", err)
+		return
+	}
+	fmt.Println("更新阅读量成功。")
+}
