@@ -147,14 +147,14 @@ func ArticleDetailHandler(c *gin.Context) {
 // @Param content formData string true "文章内容"
 // @Param summary formData string true "文章摘要"
 // @Success 200 {object} Result "{"code":200,"data":nil,"msg": "发布成功！"}"
-// @Failure 401 {object} Result "{"code":401,"data":nil,"msg": "后端获取文章失败！"}"
+// @Failure 400 {object} Result "{"code":401,"data":nil,"msg": "后端获取文章失败！"}"
 // @Router /PublishArticle [post]
 func PublishArticleHandler(c *gin.Context) {
 	var article models.ArticleDetail
 	err := c.ShouldBind(&article)
 	fmt.Printf("%#v\n", article)
 	if err != nil {
-		returnMsg(c,http.StatusUnauthorized,nil,"后端获取文章失败！")
+		returnMsg(c,400,nil,"后端获取文章失败！")
 		//c.JSON(http.StatusUnauthorized, gin.H{
 		//	"msg": "后端获取文章失败！",
 		//})
@@ -165,4 +165,16 @@ func PublishArticleHandler(c *gin.Context) {
 	//	"msg": "发布成功！",
 	//})
 	returnMsg(c,http.StatusOK,nil,"发布成功！")
+}
+
+func PublishCommentHandler(c *gin.Context) {
+	var comment models.Comment
+	fmt.Printf("%#v\n",comment)
+	err:=c.ShouldBind(&comment)
+	if err!=nil{
+		returnMsg(c,400,nil,"后端获取评论失败！")
+		return
+	}
+	db.InsertComment(comment.Content,comment.Username,comment.ArticleID)
+	returnMsg(c,200,nil,"发布评论成功！")
 }
