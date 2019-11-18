@@ -52,5 +52,5 @@ func main() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// 启动http服务，设置在:9090启动，默认在127.0.0.1:8080启动服务
-	r.Run("127.0.0.1:9090")
+	r.Run(":9090")
 }
