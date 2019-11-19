@@ -20,9 +20,9 @@ type Result struct {
 
 func returnMsg(ctx *gin.Context, code int, data interface{}, msg string) {
 	ctx.JSON(code, Result{
-		Code:code,
-		Data:data,
-		Msg:msg,
+		Code: code,
+		Data: data,
+		Msg:  msg,
 	})
 }
 
@@ -131,7 +131,7 @@ func ArticleDetailHandler(c *gin.Context) {
 	}
 	// 更新文章阅读量
 	db.UpdateViewCount(id)
-	articleDetail.ArticleInfo.ViewCount+=1
+	articleDetail.ArticleInfo.ViewCount += 1
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
 		"data": articleDetail,
@@ -154,7 +154,7 @@ func PublishArticleHandler(c *gin.Context) {
 	err := c.ShouldBind(&article)
 	fmt.Printf("%#v\n", article)
 	if err != nil {
-		returnMsg(c,400,nil,"后端获取文章失败！")
+		returnMsg(c, 400, nil, "后端获取文章失败！")
 		//c.JSON(http.StatusUnauthorized, gin.H{
 		//	"msg": "后端获取文章失败！",
 		//})
@@ -164,17 +164,32 @@ func PublishArticleHandler(c *gin.Context) {
 	//c.JSON(http.StatusOK, gin.H{
 	//	"msg": "发布成功！",
 	//})
-	returnMsg(c,http.StatusOK,nil,"发布成功！")
+	returnMsg(c, http.StatusOK, nil, "发布成功！")
 }
 
 func PublishCommentHandler(c *gin.Context) {
 	var comment models.Comment
-	fmt.Printf("%#v\n",comment)
-	err:=c.ShouldBind(&comment)
-	if err!=nil{
-		returnMsg(c,400,nil,"后端获取评论失败！")
+	fmt.Printf("%#v\n", comment)
+	err := c.ShouldBind(&comment)
+	if err != nil {
+		returnMsg(c, 400, nil, "后端获取评论失败！")
 		return
 	}
-	db.InsertComment(comment.Content,comment.Username,comment.ArticleID)
-	returnMsg(c,200,nil,"发布评论成功！")
+	db.InsertComment(comment.Content, comment.Username, comment.ArticleID)
+	returnMsg(c, 200, nil, "发布评论成功！")
+}
+
+func QueryCommentHandler(c *gin.Context) {
+	articleIDStr := c.Param("article_id")
+	articleID, err := strconv.ParseInt(articleIDStr, 0, 64)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	commentList, err := db.QueryCommentList(articleID)
+	if err != nil {
+		returnMsg(c, 400, nil, "查询评论失败！")
+		return
+	}
+	returnMsg(c, 200, commentList, "查询评论成功！")
 }
