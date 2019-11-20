@@ -28,3 +28,14 @@ VALUES
 	}
 	fmt.Println("插入评论成功！")
 }
+
+// UpdateCommentCount 更新评论数
+func UpdateCommentCount(id int64) {
+	sqlStr := "UPDATE article SET comment_count=comment_count+1 WHERE id=?"
+	_, err := db.Exec(sqlStr, id)
+	if err != nil {
+		fmt.Printf("更新评论数失败, err:%v\n", err)
+		return
+	}
+	fmt.Println("更新评论数成功。")
+}

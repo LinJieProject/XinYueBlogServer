@@ -187,6 +187,7 @@ func PublishCommentHandler(c *gin.Context) {
 		return
 	}
 	db.InsertComment(comment.Content, comment.Username, comment.ArticleID)
+	db.UpdateCommentCount(comment.ArticleID)
 	returnMsg(c, 200, nil, "发布评论成功！")
 }
 
