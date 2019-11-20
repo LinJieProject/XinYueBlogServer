@@ -167,6 +167,17 @@ func PublishArticleHandler(c *gin.Context) {
 	returnMsg(c, http.StatusOK, nil, "发布成功！")
 }
 
+// @Summary 发布评论
+// @Description 用于用户发布评论
+// @Tags 评论模块
+// @Accept  json
+// @Produce json
+// @Param content formData string true "评论内容"
+// @Param username formData string true "发布者"
+// @Param article_id formData string true "关联文章ID"
+// @Success 200 {object} Result "{"code":200,"data":nil,"msg": "发布评论成功！"}"
+// @Failure 400 {object} Result "{"code":400,"data":nil,"msg": "后端获取评论失败！"}"
+// @Router /PublishComment [post]
 func PublishCommentHandler(c *gin.Context) {
 	var comment models.Comment
 	fmt.Printf("%#v\n", comment)

@@ -76,4 +76,39 @@ paths:
       summary: 发布一篇文章
       tags:
       - 文章模块
+  /PublishComment:
+    post:
+      consumes:
+      - application/json
+      description: 用于用户发布评论
+      parameters:
+      - description: 评论内容
+        in: formData
+        name: content
+        required: true
+        type: string
+      - description: 发布者
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 关联文章ID
+        in: formData
+        name: article_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":nil,"msg": "发布评论成功！"}'
+          schema:
+            $ref: '#/definitions/controller.Result'
+        "400":
+          description: '{"code":400,"data":nil,"msg": "后端获取评论失败！"}'
+          schema:
+            $ref: '#/definitions/controller.Result'
+      summary: 发布评论
+      tags:
+      - 评论模块
 swagger: "2.0"

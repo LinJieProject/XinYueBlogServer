@@ -98,6 +98,58 @@
                     }
                 }
             }
+        },
+        "/PublishComment": {
+            "post": {
+                "description": "用于用户发布评论",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "评论模块"
+                ],
+                "summary": "发布评论",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "评论内容",
+                        "name": "content",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "发布者",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "关联文章ID",
+                        "name": "article_id",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":nil,\"msg\": \"发布评论成功！\"}",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"code\":400,\"data\":nil,\"msg\": \"后端获取评论失败！\"}",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Result"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
