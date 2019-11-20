@@ -16,6 +16,31 @@ info:
   title: 心阅博客
   version: 0.0.1
 paths:
+  /Comment/:
+    get:
+      consumes:
+      - application/json
+      description: 用于获取某篇文章的评论
+      parameters:
+      - description: 文章id
+        in: formData
+        name: ArticleID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":nil,"msg": "查询评论成功！"}'
+          schema:
+            $ref: '#/definitions/controller.Result'
+        "400":
+          description: '{"code":400,"data":nil,"msg": "查询评论失败！"}'
+          schema:
+            $ref: '#/definitions/controller.Result'
+      summary: 获取文章评论
+      tags:
+      - 评论模块
   /PublishArticle:
     post:
       consumes:
@@ -44,8 +69,8 @@ paths:
           description: '{"code":200,"data":nil,"msg": "发布成功！"}'
           schema:
             $ref: '#/definitions/controller.Result'
-        "401":
-          description: '{"code":401,"data":nil,"msg": "后端获取文章失败！"}'
+        "400":
+          description: '{"code":400,"data":nil,"msg": "后端获取文章失败！"}'
           schema:
             $ref: '#/definitions/controller.Result'
       summary: 发布一篇文章

@@ -46,11 +46,11 @@ func main() {
 		// 发布一篇文章
 		v1.POST("/PublishArticle",controller.PublishArticleHandler)
 
-		// 查询评论
-		v1.GET("/Comment/:ArticleID",controller.QueryCommentHandler)
-
 		// 发布一条评论
 		v1.POST("/PublishComment",controller.PublishCommentHandler)
+
+		// 查询评论
+		v1.GET("/Comment/:ArticleID",controller.QueryCommentHandler)
 	}
 
 	// 文档界面访问URL

@@ -147,7 +147,7 @@ func ArticleDetailHandler(c *gin.Context) {
 // @Param content formData string true "文章内容"
 // @Param summary formData string true "文章摘要"
 // @Success 200 {object} Result "{"code":200,"data":nil,"msg": "发布成功！"}"
-// @Failure 400 {object} Result "{"code":401,"data":nil,"msg": "后端获取文章失败！"}"
+// @Failure 400 {object} Result "{"code":400,"data":nil,"msg": "后端获取文章失败！"}"
 // @Router /PublishArticle [post]
 func PublishArticleHandler(c *gin.Context) {
 	var article models.ArticleDetail
@@ -179,8 +179,17 @@ func PublishCommentHandler(c *gin.Context) {
 	returnMsg(c, 200, nil, "发布评论成功！")
 }
 
+// @Summary 获取文章评论
+// @Description 用于获取某篇文章的评论
+// @Tags 评论模块
+// @Accept  json
+// @Produce json
+// @Param ArticleID formData string true "文章id"
+// @Success 200 {object} Result "{"code":200,"data":nil,"msg": "查询评论成功！"}"
+// @Failure 400 {object} Result "{"code":400,"data":nil,"msg": "查询评论失败！"}"
+// @Router /Comment/:ArticleID [get]
 func QueryCommentHandler(c *gin.Context) {
-	articleIDStr := c.Param("article_id")
+	articleIDStr := c.Param("ArticleID")
 	articleID, err := strconv.ParseInt(articleIDStr, 0, 64)
 	if err != nil {
 		fmt.Println(err)
